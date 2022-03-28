@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:green_pen/login/login_page.dart';
 
-import 'dashboard.dart';
+import 'dashboard/dashboard.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,8 +13,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: DashBoard(),
+    return GetMaterialApp(
+      home: LoginPage(),
     );
   }
 }
