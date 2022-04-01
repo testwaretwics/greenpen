@@ -102,7 +102,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
                       left: 10.0, right: 10, top:60),
                   child: RoundedButton(text: "Save", press: () {
                     print(_passwordController.text);
-                  }),
+                  }, color: secondaryColor,),
                 ),
               ],
             ),

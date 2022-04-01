@@ -100,7 +100,7 @@ class OtpScreen extends StatelessWidget {
                   press: () {
                     validation(context, _otpTextController.text);
                     // Get.to(() => name=="forgot"? ResetPasswordScreen(): LoginSuccessScreen());
-                  })
+                  }, color: secondaryColor,)
             ],
           ),
         ),

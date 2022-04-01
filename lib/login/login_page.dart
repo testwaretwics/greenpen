@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:green_pen/login/register_page.dart';
+import 'package:green_pen/utils/custColors.dart';
 import 'package:green_pen/widgets/rounded_button.dart';
 import 'package:green_pen/widgets/rounded_input_field.dart';
 import 'package:green_pen/widgets/rounded_password_field.dart';
@@ -113,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                   validation(
                       context, emailController.text, passwordController.text);
                 });
-              },
+              }, color: secondaryColor,
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 30.0),

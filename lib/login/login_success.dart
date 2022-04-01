@@ -40,7 +40,7 @@ class LoginSuccessScreen extends StatelessWidget {
 
               RoundedButton(text: "Done", press: () {
                 Get.offAll(()=>DashBoard());
-              })
+              }, color: secondaryColor,)
             ],
           ),
         ),

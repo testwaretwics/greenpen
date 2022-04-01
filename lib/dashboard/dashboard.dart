@@ -1,121 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+// import 'package:green_pen/assesment_page.dart';
 import 'package:green_pen/dashboard/profile_Info_page.dart';
+import 'package:green_pen/login/login_page.dart';
 import 'package:green_pen/others/help.dart';
+import 'package:green_pen/others/notifications_page.dart';
 import 'package:green_pen/others/privacy_policy.dart';
 import 'package:green_pen/others/terms&cond.dart';
+import 'package:green_pen/test/test_instructions.dart';
+import 'package:green_pen/utils/custColors.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
+class GridVal {
+  final IconData icon;
+  final Color color;
+  final String title;
+  final String count;
+
+  GridVal(this.icon, this.color, this.title, this.count);
+}
 
 class DashBoard extends StatelessWidget {
-  const DashBoard({Key? key}) : super(key: key);
+  final controller = PageController(viewportFraction: 0.8, keepPage: true);
+  final List<GridVal> gridVal = [
+    GridVal(Icons.fact_check_outlined, Color(0xff4BB0C7), "Test Attended", "0"),
+    GridVal(Icons.check_box, Color(0xff8EEAC9), "Test Completed", "0"),
+    GridVal(
+        Icons.pending_actions_outlined, Color(0xff8382DB), "Test Pending", "0"),
+    GridVal(Icons.bookmark_sharp, Color(0xffB916A7), "Test Percentage", "0%")
+  ];
 
   @override
   Widget build(BuildContext context) {
+    final pages = List.generate(4, (index) => demoCard());
     return Theme(
       data: ThemeData(primaryIconTheme: IconThemeData(color: Colors.black)),
       child: Scaffold(
-        drawer: Drawer(
-          child: Stack(
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 250,
-                    width: double.infinity,
-                    color: Color(0xff296ACC),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 20),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Abhirami Balamurugan",
-                            style: TextStyle(
-                                letterSpacing: 1,
-                                color: Colors.white,
-                                fontSize: 16),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            "+91-1234567890",
-                            style: TextStyle(
-                                letterSpacing: 1,
-                                color: Colors.white,
-                                fontSize: 14),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  drawerMenuButtons(ProfileInfo(), "My Profile"),
-                  drawerMenuButtons(ProfileInfo(), "Purchased History"),
-                  drawerMenuButtons(TermsAndConditions(), "Terms & Conditions"),
-                  drawerMenuButtons(PrivacyPolicy(), "Privacy Policy"),
-                  drawerMenuButtons(HelpPage(), "Help"),
-                  Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 40.0),
-                    child: InkWell(
-                      onTap: () {
-                        Get.to(
-                          () => ProfileInfo(),
-                        );
-                      },
-                      child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        height: 50,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(right: 10.0),
-                              child: Icon(
-                                Icons.arrow_back_ios_outlined,
-                                color: Color(0xff296ACC),
-                              ),
-                            ),
-                            Text(
-                              "Sign Out",
-                              style: TextStyle(
-                                color: Color(0xff296ACC),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              Positioned(
-                top: 130,
-                left: 30,
-                child: ClipOval(
-                  child: Container(
-                    height: 50,
-                    width: 50,
-                    color: Colors.white,
-                    child: Icon(Icons.person),
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 120,
-                right: 10,
-                child: Container(
-                  child: TextButton(
-                    onPressed: () {},
-                    child: Icon(Icons.close_outlined),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+        drawer: drawerMenu(),
         appBar: PreferredSize(
           preferredSize: Size(double.infinity, 80),
           child: Column(
@@ -128,7 +49,9 @@ class DashBoard extends StatelessWidget {
                     child: Stack(
                       children: [
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.to(() => NotificationsPage());
+                          },
                           icon: Icon(
                             Icons.notification_important_rounded,
                             color: Colors.black,
@@ -158,15 +81,12 @@ class DashBoard extends StatelessWidget {
                         // Navigator.of(context).push(MaterialPageRoute(
                         //     builder: (context) => LoginPage()));
                       },
-                      child: Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle, color: Colors.grey),
-                        child: Center(
-                          child: Icon(Icons.person),
-                        ),
-                      ),
+                      child: ClipOval(
+                          child: Image.network(
+                              "https://data.whicdn.com/images/322027365/original.jpg?t=1541703413",
+                              height: 50,
+                              width: 50,
+                              fit: BoxFit.fill)),
                     ),
                   )
                 ],
@@ -179,9 +99,8 @@ class DashBoard extends StatelessWidget {
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Center(
+          child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Row(
@@ -196,6 +115,9 @@ class DashBoard extends StatelessWidget {
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ],
+                ),
+                SizedBox(
+                  height: 10,
                 ),
                 Row(
                   children: [
@@ -212,127 +134,501 @@ class DashBoard extends StatelessWidget {
                     ),
                   ],
                 ),
+                SizedBox(
+                  height: 15,
+                ),
                 Divider(),
-                Container(
-                  height: 176,
-                  width: 350,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.grey,
-                          offset: Offset(-0.5, 0),
-                          blurRadius: 1,
-                          spreadRadius: 1)
-                    ],
+                SizedBox(
+                  height: 10,
+                ),
+                mainCard(),
+                SizedBox(
+                  height: 10,
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Summary for Tests ",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: MediaQuery.of(context).size.width /
+                          (MediaQuery.of(context).size.height / 3),
+                    ),
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    padding: EdgeInsets.all(5),
+                    itemCount: 4,
+                    itemBuilder: (BuildContext context, int index) {
+                      return gridChildren(
+                          gridVal[index].icon,
+                          gridVal[index].color,
+                          gridVal[index].title,
+                          gridVal[index].count);
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  height: 50,
+                  color: Color(0xffE4EDFF),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Container(
-                        width: 240,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.lightbulb_outline,
-                                    color: Color(0xffAAE0FF),
-                                  ),
-                                  Text(
-                                    "Ranks Scored Recently",
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 15.0),
-                              child: Text(
-                                  "Start Writing your Test and practise for your exams. "),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: InkWell(
-                                onTap: () {},
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Color(0xff1CBBA3),
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  height: 32,
-                                  width: 100,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Text(
-                                        "Take Test",
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                      Icon(Icons.arrow_forward_rounded,
-                                          color: Colors.white),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
+                      Text(
+                        "Test Timetable",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      SizedBox(
+                        width: 50,
+                      ),
+                      Text(
+                        "16-Mar-2022",
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Color(0xff296ACC),
                         ),
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(10),
-                            bottomRight: Radius.circular(10),
-                          ),
-                        ),
-                        width: 110,
-                        child: Center(
-                          child: Text("k"),
-                        ),
-                      ),
+                      Icon(Icons.keyboard_arrow_down),
                     ],
                   ),
                 ),
-                Text("Summary for Tests ",
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                Expanded(
-                  child: Container(
-                    child: GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
+                testListWidget(),
+                testListWidget(),
+                testListWidget(),
+                Stack(
+                  children: [
+                    SizedBox(
+                      height: 176,
+                      width: 350,
+                      child: PageView.builder(
+                        controller: controller,
+                        // itemCount: pages.length,
+                        itemBuilder: (_, index) {
+                          return pages[index % pages.length];
+                        },
                       ),
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      padding: EdgeInsets.only(top: 10, bottom: 10),
-                      itemCount: 4,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            height: 97,
-                            width: 147,
-                            decoration: BoxDecoration(
-                                color: Colors.blue,
-                                borderRadius: BorderRadius.circular(10)),
+                    ),
+                    Positioned(
+                      right: 10,
+                      bottom: 10,
+                      child: SmoothPageIndicator(
+                        controller: controller,
+                        count: pages.length,
+                        effect: WormEffect(
+                          dotHeight: 10,
+                          dotWidth: 10,
+                          type: WormType.thin,
+                          // strokeWidth: 5,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Padding testListWidget() {
+    return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          height: 80,
+          child: ListTile(
+            title: Text(
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            subtitle: Row(
+              children: [
+                Icon(Icons.list_alt_outlined),
+                Text("Descriptive"),
+                SizedBox(
+                  width: 10,
+                ),
+                Icon(Icons.timer),
+                Text("90 mins"),
+                Spacer(),
+                InkWell(
+                  onTap: () {},
+                  child: Container(
+                    height: 32,
+                    width: 100,
+                    decoration: BoxDecoration(
+                      color: primaryColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Container(
+                          child: Text(
+                            "Take Test",
+                            style: TextStyle(color: Colors.white),
                           ),
-                        );
-                      },
+                        ),
+                        Icon(Icons.arrow_forward_rounded, color: Colors.white),
+                      ],
                     ),
                   ),
                 ),
               ],
             ),
           ),
+        ));
+  }
+
+  Drawer drawerMenu() {
+    return Drawer(
+      child: Stack(
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                height: 250,
+                width: double.infinity,
+                color: Color(0xff296ACC),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 10.0, horizontal: 20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Abhirami Balamurugan",
+                        style: TextStyle(
+                            letterSpacing: 1,
+                            color: Colors.white,
+                            fontSize: 16),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        "+91-1234567890",
+                        style: TextStyle(
+                            letterSpacing: 1,
+                            color: Colors.white,
+                            fontSize: 14),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              drawerMenuButtons(ProfileInfo(), "My Profile"),
+              drawerMenuButtons(ProfileInfo(), "Purchased History"),
+              drawerMenuButtons(TermsAndConditions(), "Terms & Conditions"),
+              drawerMenuButtons(PrivacyPolicy(), "Privacy Policy"),
+              drawerMenuButtons(HelpPage(), "Help"),
+              Spacer(),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 60.0),
+                child: InkWell(
+                  onTap: () {
+                    Get.offAll(
+                      () => LoginPage(),
+                    );
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    height: 50,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10.0),
+                          child: Image.asset(
+                            "assets/images/uil_signout.png",
+                            color: Color(0xff296ACC),
+                            height: 30,
+                            width: 30,
+                          ),
+                        ),
+                        Text(
+                          "Sign Out",
+                          style: TextStyle(
+                            color: Color(0xff296ACC),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+          Positioned(
+            top: 130,
+            left: 30,
+            child: ClipOval(
+              child: Container(
+                child: ClipOval(
+                    child: Image.network(
+                        "https://data.whicdn.com/images/322027365/original.jpg?t=1541703413",
+                        height: 50,
+                        width: 50,
+                        fit: BoxFit.fill)),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 120,
+            right: 10,
+            child: Container(
+              child: TextButton(
+                onPressed: () {},
+                child: Icon(Icons.close_outlined),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container mainCard() {
+    return Container(
+      height: 176,
+      width: 370,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+              color: Colors.grey,
+              offset: Offset(-0.5, 0),
+              blurRadius: 1,
+              spreadRadius: 1)
+        ],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Container(
+            width: 240,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.lightbulb_outline,
+                        color: Color(0xffAAE0FF),
+                      ),
+                      Text(
+                        "Ranks Scored Recently",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 15.0),
+                  child: Text(
+                      "Start Writing your Test and practise for your exams. "),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: InkWell(
+                    onTap: () {
+                      Get.to(()=>TestInstructions());
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Color(0xff1CBBA3),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      height: 32,
+                      width: 100,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            "Take Test",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          Icon(Icons.arrow_forward_rounded,
+                              color: Colors.white),
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+          Spacer(),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(10),
+                bottomRight: Radius.circular(10),
+              ),
+            ),
+            width: 110,
+            // child: Center(
+            //   child: Text("k"),
+            // ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container demoCard() {
+    return Container(
+      height: 176,
+      width: 370,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+              color: Colors.grey,
+              offset: Offset(-0.5, 0),
+              blurRadius: 1,
+              spreadRadius: 1)
+        ],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Container(
+            width: 240,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.lightbulb_outline,
+                        color: Color(0xffAAE0FF),
+                      ),
+                      Text(
+                        "Ranks Scored Recently",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 15.0),
+                  child: Text(
+                      "Start Writing your Test and practise for your exams. "),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: InkWell(
+                    onTap: () {},
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Color(0xff1CBBA3),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      height: 32,
+                      width: 100,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            "Take Test",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          Icon(Icons.arrow_forward_rounded,
+                              color: Colors.white),
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+          Spacer(),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(10),
+                bottomRight: Radius.circular(10),
+              ),
+            ),
+            width: 110,
+            // child: Center(
+            //   child: Text("k"),
+            // ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Padding gridChildren(IconData icon, Color color, String title, String count) {
+    return Padding(
+      padding: const EdgeInsets.all(5),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: Color(0xffBCE4FB),
+          ),
+        ),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      height: 50,
+                      width: 50,
+                      decoration:
+                          BoxDecoration(color: color, shape: BoxShape.circle),
+                      child: Center(
+                        child: Icon(icon, color: Colors.white),
+                      ),
+                    ),
+                  ),
+                  Flexible(
+                    child: Text(
+                      title,
+                      maxLines: 2,
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Text(
+              count,
+              style: TextStyle(fontSize: 22),
+            ),
+          ],
         ),
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:green_pen/login/login_page.dart';
+import 'package:green_pen/utils/custColors.dart';
 import 'package:green_pen/widgets/rounded_button.dart';
 import 'package:green_pen/widgets/rounded_input_field.dart';
 import 'package:green_pen/widgets/rounded_password_field.dart';
@@ -179,7 +180,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           passwordController.text);
                     },
                   );
-                },
+                }, color: secondaryColor,
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 30.0),

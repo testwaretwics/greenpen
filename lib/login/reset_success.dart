@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:green_pen/utils/custColors.dart';
 import 'package:green_pen/widgets/rounded_button.dart';
 
 import 'login_page.dart';
@@ -48,7 +49,7 @@ class ResetSuccessScreen extends StatelessWidget {
 
               RoundedButton(text: "Go to Login", press: () {
                 Get.offAll(()=>LoginPage());
-              })
+              }, color: secondaryColor,)
             ],
           ),
         ),

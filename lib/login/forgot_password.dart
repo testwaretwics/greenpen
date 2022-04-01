@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:green_pen/utils/custColors.dart';
 import 'package:green_pen/widgets/rounded_button.dart';
 import 'package:green_pen/widgets/rounded_input_field.dart';
 import 'package:green_pen/widgets/text_field_container.dart';
@@ -90,7 +91,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                 text: "Proceed",
                 press: () {
                   validation(context, _textController.text);
-                },
+                }, color: secondaryColor,
               ),
             ],
           ),

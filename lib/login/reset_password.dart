@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:green_pen/utils/custColors.dart';
 import 'package:green_pen/widgets/rounded_button.dart';
 import 'package:green_pen/widgets/rounded_input_field.dart';
 import 'package:green_pen/widgets/rounded_password_field.dart';
@@ -136,7 +137,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 text: "Submit",
                 press: () {
                   validation(context, _passController.text, _confirmPassController.text);
-                },
+                }, color: secondaryColor,
               ),
             ],
           ),
