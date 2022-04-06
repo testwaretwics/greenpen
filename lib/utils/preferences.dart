@@ -6,10 +6,13 @@ class Preferences {
 
   static final String USER_ACTIVE = "USER_ACTIVE";
   static final String USER_NAME = 'USER_NAME';
+  static final String USER_FIRST_NAME = 'USER_FIRST_NAME';
+  static final String USER_LAST_NAME = 'USER_LAST_NAME';
   static final String USER_ID = "USER_ID";
   static final String USER_EMAIL = "USER_EMAIL";
   static final String USER_IMAGE = "USER_IMAGE";
   static final String USER_MOBILE = "USER_MOBILE";
+  static final String USER_EXIST = "USER_EXIST";
   static final String USER_MEDIUM = "USER_MEDIUM";
   static final String USER_PASSWORD = "USER_PASSWORD";
   static final String USER_GENDER = "USER_GENDER";
@@ -24,6 +27,13 @@ class Preferences {
   static final String MATERIAL_VIDEO_URL = "MATERIAL_VIDEO_URL";
   static final String MATERIAL_PDF_URL = "MATERIAL_PDF_URL";
 
+
+  /* PREF DATA */
+  static String FIREBASE_TOKEN = 'FIREBASE_TOKEN';
+  static String AUTH_CODE = 'AUTH_CODE';
+  static String SAVE_LANG = 'SAVE_LANG';
+
+  // ignore: always_declare_return_types
   static addDataToSF(String key, var value) async {
     prefs = await SharedPreferences.getInstance();
     print(
@@ -51,7 +61,7 @@ class Preferences {
     }
   }
 
-  static getStringValuesSF(String key) async {
+  static Future<String?>? getStringValuesSF(String key) async {
     prefs = await SharedPreferences.getInstance();
     String? stringValue = prefs.getString(key);
     return stringValue;
@@ -64,21 +74,21 @@ class Preferences {
     return stringValue;
   }
 
-  static getBoolValuesSF(String key) async {
+  static Future<bool?>? getBoolValuesSF(String key) async {
     prefs = await SharedPreferences.getInstance();
     //Return bool
     bool? boolValue = prefs.getBool(key);
     return boolValue;
   }
 
-  static getIntValuesSF(String key) async {
+  static Future<int?>? getIntValuesSF(String key) async {
     prefs = await SharedPreferences.getInstance();
     //Return int
     int? intValue = prefs.getInt(key);
     return intValue;
   }
 
-  static getDoubleValuesSF(String key) async {
+  static Future<double?>? getDoubleValuesSF(String key) async {
     prefs = await SharedPreferences.getInstance();
     //Return double
     double? doubleValue = prefs.getDouble(key);

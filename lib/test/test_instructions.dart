@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:green_pen/utils/custColors.dart';
-import 'package:green_pen/widgets/rounded_button.dart';
+import 'package:green_pen/screen/widgets/rounded_button.dart';
 
 import 'test_page.dart';
 
