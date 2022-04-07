@@ -7,6 +7,7 @@ import 'package:green_pen/others/help.dart';
 import 'package:green_pen/others/notifications_page.dart';
 import 'package:green_pen/others/privacy_policy.dart';
 import 'package:green_pen/others/terms&cond.dart';
+import 'package:green_pen/test/Take%20Test/take_test.dart';
 import 'package:green_pen/test/test_instructions.dart';
 import 'package:green_pen/utils/custColors.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -263,7 +264,9 @@ class DashBoard extends StatelessWidget {
                 Text("90 mins"),
                 Spacer(),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(()=>TakeTestPage());
+                  },
                   child: Container(
                     height: 32,
                     width: 100,

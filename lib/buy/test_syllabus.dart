@@ -1,29 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:green_pen/test/Result/result_page.dart';
-import 'package:green_pen/buy/buy_test.dart';
-import 'package:green_pen/test/Take%20Test/take_test.dart';
-import 'package:green_pen/utils/custColors.dart';
-import 'package:green_pen/widgets/rounded_button.dart';
 
-import 'Result/incomplete_testResult_page.dart';
-import 'test_page.dart';
-
-class TestInstructions extends StatefulWidget {
-  const TestInstructions({Key? key}) : super(key: key);
-
-  @override
-  _TestInstructionsState createState() => _TestInstructionsState();
-}
-
-class _TestInstructionsState extends State<TestInstructions> {
-  bool isChecked = false;
+class TestSyllabus extends StatelessWidget {
+  const TestSyllabus({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "General Instructions",
+          "Syllabus",
           style: TextStyle(
             color: Colors.black,
           ),
@@ -33,7 +18,9 @@ class _TestInstructionsState extends State<TestInstructions> {
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.back();
+            },
             icon: Icon(
               Icons.close,
               color: Colors.black,
@@ -43,7 +30,7 @@ class _TestInstructionsState extends State<TestInstructions> {
       ),
       body: Padding(
         padding:
-            const EdgeInsets.only(left: 15.0, top: 10, bottom: 20, right: 10),
+        const EdgeInsets.only(left: 15.0, top: 10, bottom: 20, right: 10),
         child: ListView(
           children: [
             Text(
@@ -69,45 +56,7 @@ class _TestInstructionsState extends State<TestInstructions> {
             SizedBox(
               height: 20,
             ),
-            Row(
-              children: [
-                Checkbox(
-                    value: isChecked,
-                    onChanged: (val) {
-                      setState(() {
-                        isChecked = val!;
-                      });
-                    }),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "I Agree to the terms and conditions of",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                    ),
-                    Text(
-                      "the test",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                    )
-                  ],
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            RoundedButton(
-              text: "Start Test",
-              press: () {
-                isChecked
-                    ? Get.to(() => TestPage())
-                    : Get.snackbar("", "agree the terms and conditions",
-                        colorText: Colors.white, backgroundColor: Colors.blue);
-              },
-              color: primaryLightColor,
-            )
+
           ],
         ),
       ),
