@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:green_pen/model/multipleCQ_model.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 
 class QuestionController extends GetxController {
   // List<dynamic> ans = [].obs;
+  final ItemScrollController itemScrollController = ItemScrollController();
+  final ItemPositionsListener itemPositionsListener = ItemPositionsListener.create();
   getList() => questionList.obs;
   dynamic selectedAns;
   getSelectedAns() => selectedAns.obs;
   var index = 0.obs;
+  var scrollIndex = 0.obs;
   var lang = ''.obs;
   late Color _color;
   Color _selected = Colors.green;
@@ -34,6 +38,18 @@ class QuestionController extends GetxController {
   next() {
     index++;
     update();
+  }
+  scrollTo(index){
+    itemScrollController.scrollTo(
+        index: index,
+        duration: Duration(seconds: 2),
+        curve: Curves.easeInOutCubic);
+  }
+  scrollForward(){
+    itemScrollController.scrollTo(
+        index: scrollIndex.toInt(),
+        duration: Duration(seconds: 1),
+        curve: Curves.easeInOutCubic);
   }
 
   @override
@@ -98,6 +114,80 @@ class QuestionController extends GetxController {
             id: "id3",
             question:
                 "Which player played most balls in test cricket and how many balls?",
+            answers: [
+              Answer(identifier: "0", answer: "Sachin Tendulkar, 30000 balls"),
+              Answer(identifier: "1", answer: "Rahul Dravid, 31,027"),
+              Answer(identifier: "2", answer: "ricky Ponting, 27000"),
+              Answer(identifier: "3", answer: "Brain Lara, 35000")
+            ],
+            correctAnswer: "3",
+            selectedAnswer: null,
+          ),
+          Question(
+            id: "id4",
+            question: "https://resize.indiatvnews.com/en/resize/newbucket/1200_-/2020/09/sachin-tendulkar-1600928111.jpg",
+            answers: [
+              Answer(identifier: "0", answer: "10887"),
+              Answer(identifier: "1", answer: "9383"),
+              Answer(identifier: "2", answer: "13288"),
+              Answer(identifier: "3", answer: "7065")
+            ],
+            correctAnswer: "1",
+            // selectedAnswer: getSelectedAns(),
+          ),
+          Question(
+            id: "id5",
+            question: "https://resize.indiatvnews.com/en/resize/newbucket/1200_-/2020/09/sachin-tendulkar-1600928111.jpg",
+            answers: [
+              Answer(identifier: "0", answer: "https://i.pinimg.com/236x/38/cf/b2/38cfb29f8fa42a7cbf7deba565c4e25c--sachin-tendulkar-the-class.jpg"),
+              Answer(identifier: "1", answer: "https://i.pinimg.com/originals/21/c1/55/21c155e87f0f0b54cae08034cfc22f03.jpg"),
+              Answer(identifier: "2", answer: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRk6ZJMJStgmv2LgreDgMdrdjwa4v9iqLpf0GP5MaUY8mQowA7Rqhyd0zSMxVJLHQuZAhA&usqp=CAU"),
+              Answer(identifier: "3", answer: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwRSkKM_mzigUx_hQwWvxVwjesXwjQfbitWwJcyJ77LDim8WyqDqw17Au-rItWCOE228M&usqp=CAU")
+            ],
+            correctAnswer: "2",
+            selectedAnswer: null,
+          ),
+          Question(
+            id: "id6",
+            question:
+            "Which player played most balls in test cricket and how many balls?",
+            answers: [
+              Answer(identifier: "0", answer: "Sachin Tendulkar, 30000 balls"),
+              Answer(identifier: "1", answer: "Rahul Dravid, 31,027"),
+              Answer(identifier: "2", answer: "ricky Ponting, 27000"),
+              Answer(identifier: "3", answer: "Brain Lara, 35000")
+            ],
+            correctAnswer: "3",
+            selectedAnswer: null,
+          ),
+          Question(
+            id: "id7",
+            question: "https://resize.indiatvnews.com/en/resize/newbucket/1200_-/2020/09/sachin-tendulkar-1600928111.jpg",
+            answers: [
+              Answer(identifier: "0", answer: "10887"),
+              Answer(identifier: "1", answer: "9383"),
+              Answer(identifier: "2", answer: "13288"),
+              Answer(identifier: "3", answer: "7065")
+            ],
+            correctAnswer: "1",
+            // selectedAnswer: getSelectedAns(),
+          ),
+          Question(
+            id: "id8",
+            question: "https://resize.indiatvnews.com/en/resize/newbucket/1200_-/2020/09/sachin-tendulkar-1600928111.jpg",
+            answers: [
+              Answer(identifier: "0", answer: "https://i.pinimg.com/236x/38/cf/b2/38cfb29f8fa42a7cbf7deba565c4e25c--sachin-tendulkar-the-class.jpg"),
+              Answer(identifier: "1", answer: "https://i.pinimg.com/originals/21/c1/55/21c155e87f0f0b54cae08034cfc22f03.jpg"),
+              Answer(identifier: "2", answer: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRk6ZJMJStgmv2LgreDgMdrdjwa4v9iqLpf0GP5MaUY8mQowA7Rqhyd0zSMxVJLHQuZAhA&usqp=CAU"),
+              Answer(identifier: "3", answer: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwRSkKM_mzigUx_hQwWvxVwjesXwjQfbitWwJcyJ77LDim8WyqDqw17Au-rItWCOE228M&usqp=CAU")
+            ],
+            correctAnswer: "2",
+            selectedAnswer: null,
+          ),
+          Question(
+            id: "id9",
+            question:
+            "Which player played most balls in test cricket and how many balls?",
             answers: [
               Answer(identifier: "0", answer: "Sachin Tendulkar, 30000 balls"),
               Answer(identifier: "1", answer: "Rahul Dravid, 31,027"),

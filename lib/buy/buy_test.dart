@@ -1,8 +1,8 @@
 import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:green_pen/cart/booking_form.dart';
 import 'package:green_pen/controller/buy_test_controller.dart';
-import 'package:green_pen/buy/about_test.dart';
 import 'package:green_pen/utils/custColors.dart';
 
 class BuyTestPage extends StatelessWidget {
@@ -302,7 +302,7 @@ class BuyTestPage extends StatelessWidget {
                     color: primaryColor,
                     height: 50,
                     onPressed: () {
-                      Get.to(() => AboutTest());
+                      Get.to(() => BookingForm());
                     },
                     child: Text(
                       "Book Now",

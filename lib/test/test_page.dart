@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:green_pen/controller/question_controller.dart';
 import 'package:green_pen/model/multipleCQ_model.dart';
 import 'package:green_pen/utils/custColors.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 
 // class QuestionPaper {
@@ -19,6 +20,9 @@ class TestPage extends StatefulWidget {
 
 class _TestPageState extends State<TestPage> {
   final _controller = Get.put(QuestionController());
+  final ItemScrollController itemScrollController = ItemScrollController();
+  final ItemPositionsListener itemPositionsListener = ItemPositionsListener.create();
+
   late var questions;
   dynamic selectedVal = 5;
   var index = 0;
@@ -75,7 +79,9 @@ class _TestPageState extends State<TestPage> {
                         ),
                         Spacer(),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.back();
+                          },
                           icon: Icon(
                             Icons.close,
                             color: Colors.white,
@@ -98,24 +104,25 @@ class _TestPageState extends State<TestPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: [
-                    Column(children:[
-                    Row(
-                      children: [
-                        Icon(Icons.timer, color: Colors.white),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          "Time Left :",
-                          style: TextStyle(fontSize: 18, color: Colors.white),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),Padding(
-                      padding: const EdgeInsets.only(left:15.0),
-                      child: StreamBuilder<int>(
+                    Column(children: [
+                      Row(
+                        children: [
+                          Icon(Icons.timer, color: Colors.white),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            "Time Left :",
+                            style: TextStyle(fontSize: 18, color: Colors.white),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15.0),
+                        child: StreamBuilder<int>(
                           stream: _stopWatchTimer.rawTime,
                           initialData: 3600,
                           builder: (context, snap) {
@@ -133,15 +140,73 @@ class _TestPageState extends State<TestPage> {
                             );
                           },
                         ),
-                    ),
+                      ),
                     ]),
                     Spacer(),
                     Padding(
                       padding: const EdgeInsets.only(right: 10),
-                      child: FlatButton(color: Color(0xff42E784),
-                        height: 40,minWidth: 140,
-                        onPressed: (){}, child: Text("Submit Test"),textColor: Colors.white,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      child: FlatButton(
+                        color: Color(0xff42E784),
+                        height: 40,
+                        minWidth: 140,
+                        onPressed: () {
+                          Get.defaultDialog(
+                            contentPadding: EdgeInsets.fromLTRB(10, 20, 10, 20),
+                            title: "Do you want to End the Test ?",
+                            content: Text(
+                                "Check the answers before click the End button"),
+                            actions: [
+                              Container(
+                                height: 40,
+                                width: 120,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(
+                                    color: Color(0xff296ACC),
+                                  ),
+                                ),
+                                child: FlatButton(
+                                  onPressed: () {
+                                    Get.back();
+                                  },
+                                  child: Text(
+                                    "Cancel",
+                                    style: TextStyle(color: secondaryColor),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                height: 40,
+                                width: 120,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(
+                                    color: Color(0xff296ACC),
+                                  ),
+                                ),
+                                child: FlatButton(
+                                  color: secondaryColor,
+                                  onPressed: () {
+                                    Get.back();
+                                    print(
+                                      _controller.getSelectedAns(),
+                                    );
+                                    _stopWatchTimer.onExecute
+                                        .add(StopWatchExecute.stop);
+                                  },
+                                  child: Text(
+                                    "End Test",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                        child: Text("Submit Test"),
+                        textColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
                       ),
                     )
                   ],
@@ -187,13 +252,14 @@ class _TestPageState extends State<TestPage> {
                   onTap: () {
                     if (index < questions - 1) {
                       next();
+                      index = index+1;
                       _controller.addAns(selectedVal);
                     } else {
                       Get.defaultDialog(
                         contentPadding: EdgeInsets.fromLTRB(10, 20, 10, 20),
-                        title: "Do you want to End the test ?",
+                        title: "Do you want to Submit the test ?",
                         content: Text(
-                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras elit sed sit dui amet aliquam id. Rhoncus sit tempor sed sed felis. Quisque in bibendum et at. Eu in dapibus vitae mattis arcu. "),
+                            "Check the answers before click the submit button"),
                         actions: [
                           Container(
                             height: 40,
@@ -227,12 +293,14 @@ class _TestPageState extends State<TestPage> {
                               color: secondaryColor,
                               onPressed: () {
                                 Get.back();
-                                print(_controller.getSelectedAns(),);
+                                print(
+                                  _controller.getSelectedAns(),
+                                );
                                 _stopWatchTimer.onExecute
                                     .add(StopWatchExecute.stop);
                               },
                               child: Text(
-                                "End Test",
+                                "Submit Test",
                                 style: TextStyle(color: Colors.white),
                               ),
                             ),
@@ -272,17 +340,18 @@ class _TestPageState extends State<TestPage> {
                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 child: Row(
                   children: [
-                    Column(crossAxisAlignment: CrossAxisAlignment.start,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           "Answered - 50",
-                          style:
-                              TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                         Text(
                           "Unanswered - 150",
-                          style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -343,13 +412,6 @@ class _TestPageState extends State<TestPage> {
                   ],
                 ),
               ),
-              // Row(
-              //   children: [
-              //     Text("<"),
-              //     ListView.builder(itemBuilder: (context, index){return Container();},itemCount: ,),
-              //     Text(">"),
-              //   ],
-              // ),
               Container(
                 child: qstnWidget(
                     lang == '' || lang == 'english'
@@ -377,12 +439,146 @@ class _TestPageState extends State<TestPage> {
                   children: [
                     Row(
                       children: [
-                        Icon(
-                          Icons.info_rounded,
-                          color: Color(0xffF2D925),
-                          size: 24,
+                        InkWell(
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (_) => AlertDialog(
+                                contentPadding: EdgeInsets.only(
+                                    left: 20, top: 10, right: 10, bottom: 10),
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(12.0),
+                                  ),
+                                ),
+                                content: Builder(
+                                  builder: (context) {
+                                    var height =
+                                        MediaQuery.of(context).size.height;
+                                    var width =
+                                        MediaQuery.of(context).size.width;
+
+                                    return Container(
+                                      height: height / 3.5,
+                                      width: width,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Spacer(),
+                                              InkWell(
+                                                onTap: () {
+                                                  Get.back();
+                                                },
+                                                child: Icon(
+                                                  Icons.close,
+                                                  size: 24,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Text(
+                                            "Question Answer Pattern",
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Text.rich(
+                                            TextSpan(
+                                              children: <InlineSpan>[
+                                                WidgetSpan(
+                                                  child: Container(
+                                                    child: Text(
+                                                      '⚈   ',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Color(0xff60B687),
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 24),
+                                                    ),
+                                                  ),
+                                                ),
+                                                WidgetSpan(
+                                                  child: Container(
+                                                    child: Text(
+                                                        "Questions Answered"),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Text.rich(
+                                            TextSpan(
+                                              children: <InlineSpan>[
+                                                WidgetSpan(
+                                                  child: Container(
+                                                    child: Text(
+                                                      '⚈   ',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Color(0xffC4C4C4),
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 24),
+                                                    ),
+                                                  ),
+                                                ),
+                                                WidgetSpan(
+                                                  child: Container(
+                                                    child: Text(
+                                                        "Questions UnAnswered"),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Text.rich(
+                                            TextSpan(
+                                              children: <InlineSpan>[
+                                                WidgetSpan(
+                                                  child: Container(
+                                                    child: Text(
+                                                      '⚈   ',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Color(0xff1E4F66),
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 24),
+                                                    ),
+                                                  ),
+                                                ),
+                                                WidgetSpan(
+                                                  child: Container(
+                                                    child: Text(
+                                                        "Questions marked for review"),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            );
+                          },
+                          child: Icon(
+                            Icons.info_rounded,
+                            color: Color(0xffF2D925),
+                            size: 24,
+                          ),
                         ),
-                        SizedBox(width: 10,),
+                        SizedBox(
+                          width: 10,
+                        ),
                         Text(
                           "Question ${qstn.id} of 200",
                           style: TextStyle(fontSize: 16),
@@ -390,11 +586,11 @@ class _TestPageState extends State<TestPage> {
                       ],
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 5.0,left: 40),
+                      padding: const EdgeInsets.only(top: 5.0, left: 35),
                       child: Text(
                         "⚈  Mark 5",
                         style:
-                            TextStyle(fontSize: 16, color: Color(0xff1CBBA3)),
+                            TextStyle(fontSize: 16, color: Color(0xff1CBBA3),),
                       ),
                     ),
                   ],
@@ -405,11 +601,58 @@ class _TestPageState extends State<TestPage> {
                   child: Text(
                     "Clear Response",
                     style: TextStyle(
-                        decoration: TextDecoration.underline,
-                        color: Color(0xffCC2929),),
+                      decoration: TextDecoration.underline,
+                      color: Color(0xffCC2929),
+                    ),
                   ),
                 ),
               ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            child: Container(height: 70,
+              child: Row(
+                children: [
+                  InkWell(
+                    child:Icon(Icons.arrow_back_ios_outlined,size: 30,),
+                    onTap: (){
+                    if(index >= 5)  _controller.scrollTo(index-5);
+                    },
+                  ),
+    Expanded(
+      child: ScrollablePositionedList.builder(
+      itemCount: _controller.questionList[0].questions!.length,
+      itemBuilder: (context, index) => Padding(
+        padding: const EdgeInsets.all(6.0),
+        child: InkWell(onTap: (){
+          setState(() {
+            index = index-1;
+          });
+        },
+          child: Container(
+            height: 50,width: 50,
+            decoration: BoxDecoration(
+              border: Border.all(color:Colors.grey.shade300),),
+            child:Center(
+              child:Text(_controller.questionList[0].questions![index].id),
+            ),
+          ),
+        ),
+      ),
+        scrollDirection: Axis.horizontal,
+      itemScrollController: _controller.itemScrollController,
+      itemPositionsListener: _controller.itemPositionsListener,
+      ),
+    ),
+                  InkWell(
+                    child:Icon(Icons.arrow_forward_ios_outlined,size: 30,),
+                    onTap: (){
+                    if(index<=_controller.questionList[0].questions!.length-5)  _controller.scrollTo(index+5);
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
           Container(
@@ -417,11 +660,16 @@ class _TestPageState extends State<TestPage> {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child:
-                  qstn.id != "id2"?Text(
-                    qstn.question,
-                    style: TextStyle(fontSize: 16),
-                  ): Image.network(qstn.question,height: 200,width:200,),
+                  child: qstn.id != "id2"
+                      ? Text(
+                          qstn.question,
+                          style: TextStyle(fontSize: 16),
+                        )
+                      : Image.network(
+                          qstn.question,
+                          height: 200,
+                          width: 200,
+                        ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -437,12 +685,15 @@ class _TestPageState extends State<TestPage> {
                           title: Container(
                               padding: EdgeInsets.all(10),
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(
-                                      color: selectedVal == index
-                                          ? _selected
-                                          : _unSelected),),
-                              child: qstn.id != "id2"? Text(qstn.answers[index].answer):Image.network(qstn.answers[index].answer)),
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(
+                                    color: selectedVal == index
+                                        ? _selected
+                                        : _unSelected),
+                              ),
+                              child: qstn.id != "id2"
+                                  ? Text(qstn.answers[index].answer)
+                                  : Image.network(qstn.answers[index].answer)),
                           groupValue: selectedVal,
                           onChanged: (value) {
                             // if (mounted)
@@ -466,7 +717,6 @@ class _TestPageState extends State<TestPage> {
     );
   }
 }
-
 
 // import 'package:flutter/material.dart';
 // import 'package:get/get.dart';

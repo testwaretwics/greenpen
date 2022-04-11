@@ -102,7 +102,7 @@ class _TestInstructionsState extends State<TestInstructions> {
               text: "Start Test",
               press: () {
                 isChecked
-                    ? Get.to(() => TestPage())
+                    ? Get.to(() => BuyTestPage())
                     : Get.snackbar("", "agree the terms and conditions",
                         colorText: Colors.white, backgroundColor: Colors.blue);
               },
