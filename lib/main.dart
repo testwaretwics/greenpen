@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
       home: LoginPage(),
       debugShowCheckedModeBanner: false,
       getPages: AppPages.pages
+
     );
   }
 }
