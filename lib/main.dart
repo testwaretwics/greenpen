@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-
-import 'dashboard.dart';
+import 'package:get/get.dart';
+import 'package:green_pen/pages/page.dart';
+import 'package:green_pen/screen/assessments/assessments.dart';
+import 'package:green_pen/screen/dashboard/dashboard.dart';
+import 'package:green_pen/screen/login/login_page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -11,8 +14,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: DashBoard(),
+    return GetMaterialApp(
+      home: LoginPage(),
+      debugShowCheckedModeBanner: false,
+      getPages: AppPages.pages
+
     );
   }
 }
