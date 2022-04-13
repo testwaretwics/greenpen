@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:green_pen/utils/custColors.dart';
 
-class IncompleteResultPage extends StatelessWidget {
-  const IncompleteResultPage({Key? key}) : super(key: key);
+class IncompleteTestReportPage extends StatelessWidget {
+  const IncompleteTestReportPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,12 @@ class IncompleteResultPage extends StatelessWidget {
         title: Text("Test Report"),
         centerTitle: true,
         backgroundColor: primaryLightColor,
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.close))],
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.close),
+          ),
+        ],
       ),
       body: Container(
         padding: EdgeInsets.all(15),

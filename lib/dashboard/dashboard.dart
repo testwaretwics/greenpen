@@ -8,7 +8,8 @@ import 'package:green_pen/others/notifications_page.dart';
 import 'package:green_pen/others/privacy_policy.dart';
 import 'package:green_pen/others/terms&cond.dart';
 import 'package:green_pen/test/Take%20Test/take_test.dart';
-import 'package:green_pen/test/test_instructions.dart';
+import 'package:green_pen/test/purchased%20test/purchased_test_list.dart';
+import 'package:green_pen/test/Take%20Test/test_instructions.dart';
 import 'package:green_pen/utils/custColors.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -334,7 +335,7 @@ class DashBoard extends StatelessWidget {
                 ),
               ),
               drawerMenuButtons(ProfileInfo(), "My Profile"),
-              drawerMenuButtons(ProfileInfo(), "Purchased History"),
+              drawerMenuButtons(PurchasedTests(), "Purchased History"),
               drawerMenuButtons(TermsAndConditions(), "Terms & Conditions"),
               drawerMenuButtons(PrivacyPolicy(), "Privacy Policy"),
               drawerMenuButtons(HelpPage(), "Help"),

@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:green_pen/test/Result/result_page.dart';
-import 'package:green_pen/buy/buy_test.dart';
-import 'package:green_pen/test/Take%20Test/take_test.dart';
 import 'package:green_pen/utils/custColors.dart';
 import 'package:green_pen/widgets/rounded_button.dart';
-
-import 'Result/incomplete_testResult_page.dart';
-import 'test_page.dart';
+import '../buy/buy_test.dart';
 
 class TestInstructions extends StatefulWidget {
   const TestInstructions({Key? key}) : super(key: key);

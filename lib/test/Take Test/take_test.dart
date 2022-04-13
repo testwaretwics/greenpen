@@ -127,11 +127,11 @@ class TakeTestPage extends StatelessWidget {
                   children: [
                     Text(
                       "GR- II & IIA Prelims General Studies",
-                      style: TextStyle(fontSize: 16, color: Colors.black),
+                      style: TextStyle(fontSize: 16, color: Colors.black,fontWeight: FontWeight.bold),
                     ),
                     Text(
                       "+ English",
-                      style: TextStyle(fontSize: 16, color: Colors.black),
+                      style: TextStyle(fontSize: 16, color: Colors.black,fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -142,7 +142,7 @@ class TakeTestPage extends StatelessWidget {
               child: Text(
                 "\u{20B9}   $amount",
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 18,
                   color: Color(0xff296ACC),
                 ),
               ),

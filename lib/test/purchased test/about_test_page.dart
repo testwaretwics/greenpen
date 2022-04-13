@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:green_pen/test/buy/test_syllabus.dart';
 import 'package:green_pen/utils/custColors.dart';
 
-class AboutTestStatus extends StatelessWidget {
-  const AboutTestStatus({Key? key}) : super(key: key);
+class AboutPurchasedTest extends StatelessWidget {
+  const AboutPurchasedTest({Key? key}) : super(key: key);
   final String amount = "3000";
 
   @override
@@ -323,26 +323,6 @@ class AboutTestStatus extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 14,
                           color: Color(0xff263238),
-                        ),
-                      ),
-                    ),
-                    Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: Expanded(
-                        child: FlatButton(
-                          color: Colors.white,
-                          height: 35,
-                          onPressed: () {
-                            Get.to(() => AboutTestStatus());
-                          },
-                          child: Text(
-                            "Resume Test",
-                            style: TextStyle(color: secondaryColor),
-                          ),
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(color: secondaryColor),
-                          ),
                         ),
                       ),
                     ),

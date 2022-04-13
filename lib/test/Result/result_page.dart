@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:green_pen/test/Result/mark_analysis.dart';
 import 'package:green_pen/utils/custColors.dart';
 
-class ResultPage extends StatelessWidget {
-  const ResultPage({Key? key}) : super(key: key);
+import 'data_report.dart';
+
+class TestReportPage extends StatelessWidget {
+  const TestReportPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -113,79 +117,89 @@ class ResultPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(
-                  height: 108,
-                  width: 148,
-                  decoration: BoxDecoration(boxShadow: [
-                    BoxShadow(
-                        offset: Offset(0, 1),
-                        color: Colors.grey.shade100,
-                        spreadRadius: 1,
-                        blurRadius: 2)
-                  ]),
-                  child: Column(
-                    children: [
-                      Container(
-                        height: 10,
-                        color: Color(0xffFE9ECC),
-                      ),
-                      Spacer(),
-                      Container(
-                        child: Icon(
-                          Icons.menu_book_rounded,
-                          size: 50,
+                InkWell(
+                  onTap: (){
+                    Get.to(()=>MarkAnalysis());
+                  },
+                  child: Container(
+                    height: 108,
+                    width: 148,
+                    decoration: BoxDecoration(boxShadow: [
+                      BoxShadow(
+                          offset: Offset(0, 1),
+                          color: Colors.grey.shade100,
+                          spreadRadius: 1,
+                          blurRadius: 2)
+                    ]),
+                    child: Column(
+                      children: [
+                        Container(
+                          height: 10,
+                          color: Color(0xffFE9ECC),
                         ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        "Mark Analysis",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                    ],
+                        Spacer(),
+                        Container(
+                          child: Icon(
+                            Icons.menu_book_rounded,
+                            size: 50,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "Mark Analysis",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-                Container(
-                  height: 108,
-                  width: 148,
-                  decoration: BoxDecoration(boxShadow: [
-                    BoxShadow(
-                        offset: Offset(0, 1),
-                        color: Colors.grey.shade100,
-                        spreadRadius: 1,
-                        blurRadius: 2)
-                  ]),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        height: 10,
-                        color: Color(0xff9EE7FE),
-                      ),
-                      Spacer(),
-                      Container(
-                        child: Icon(
-                          Icons.menu_book_rounded,
-                          size: 50,
+                InkWell(
+                  onTap: (){
+                    Get.to(()=>DataReports());
+                  },
+                  child: Container(
+                    height: 108,
+                    width: 148,
+                    decoration: BoxDecoration(boxShadow: [
+                      BoxShadow(
+                          offset: Offset(0, 1),
+                          color: Colors.grey.shade100,
+                          spreadRadius: 1,
+                          blurRadius: 2)
+                    ]),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          height: 10,
+                          color: Color(0xff9EE7FE),
                         ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        "Data Reports",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                    ],
+                        Spacer(),
+                        Container(
+                          child: Icon(
+                            Icons.menu_book_rounded,
+                            size: 50,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "Data Reports",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
