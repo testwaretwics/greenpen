@@ -34,6 +34,7 @@ class _BookingFormState extends State<BookingForm> {
   set _imageFile(XFile? value) {
     _imageFileList = value == null ? null : <XFile>[value];
   }
+
   String? _image;
 
   dynamic pickImageError;
@@ -54,21 +55,21 @@ class _BookingFormState extends State<BookingForm> {
   }
 
   Future<void> _onPressed(ImageSource source) async {
-            try {
-              final XFile? pickedFile = await _picker.pickImage(
-                source: source,
-                maxWidth: 200,
-                maxHeight: 200,
-                imageQuality: 100,
-              );
-              setState(() {
-                _imageFile = pickedFile;
-                _image = pickedFile!.name;
-              });
-            } catch (e) {
-              setState(() {
-                pickImageError = e;
-              });
+    try {
+      final XFile? pickedFile = await _picker.pickImage(
+        source: source,
+        maxWidth: 200,
+        maxHeight: 200,
+        imageQuality: 100,
+      );
+      setState(() {
+        _imageFile = pickedFile;
+        _image = pickedFile!.name;
+      });
+    } catch (e) {
+      setState(() {
+        pickImageError = e;
+      });
     }
   }
 
@@ -217,8 +218,11 @@ class _BookingFormState extends State<BookingForm> {
                               height: 20,
                               width: 20,
                               decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: index>0?Color(0xffEEB6CC):Color(0xffDBDBDB),),
+                                shape: BoxShape.circle,
+                                color: index > 0
+                                    ? Color(0xffEEB6CC)
+                                    : Color(0xffDBDBDB),
+                              ),
                             ),
                           ),
                         ),
@@ -262,7 +266,7 @@ class _BookingFormState extends State<BookingForm> {
                   height: 50,
                   minWidth: 140,
                   onPressed: () {
-                    index < 2 ?next():Get.to(()=>CartPage());
+                    index < 2 ? next() : Get.to(() => CartPage());
                     setState(() {
                       index == 1
                           ? _widget = second()
@@ -326,9 +330,7 @@ class _BookingFormState extends State<BookingForm> {
             children: [
               Align(
                 alignment: Alignment.centerLeft,
-                child:
-
-                Text(
+                child: Text(
                   "Student Image",
                   style: TextStyle(
                       fontSize: 14,
@@ -354,9 +356,10 @@ class _BookingFormState extends State<BookingForm> {
           dashLength: 4.0,
           dashColor: Color(0xffB5B5B5),
         ),
-        InkWell(onTap: (){
-          _onPressed(ImageSource.gallery);
-        },
+        InkWell(
+          onTap: () {
+            _onPressed(ImageSource.gallery);
+          },
           child: Container(
             color: Color(0xffF5F5F5),
             child: Row(
@@ -381,19 +384,21 @@ class _BookingFormState extends State<BookingForm> {
                         SizedBox(
                           width: 20,
                         ),
-                    _image==null?  Text(
-                          "Upload image",
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: Color(0xffA6A6A6),
-                              decoration: TextDecoration.underline),
-                        ):Text(
-                        _image!,
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Color(0xffA6A6A6),
-                            decoration: TextDecoration.underline),
-                      ),
+                        _image == null
+                            ? Text(
+                                "Upload image",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: Color(0xffA6A6A6),
+                                    decoration: TextDecoration.underline),
+                              )
+                            : Text(
+                                _image!,
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: Color(0xffA6A6A6),
+                                    decoration: TextDecoration.underline),
+                              ),
                       ],
                     ),
                   ),
@@ -606,14 +611,16 @@ class _BookingFormState extends State<BookingForm> {
           textWidget("St. Joseph’s Institute of Technology", 16, false),
           textWidget("89%", 16, false),
           Padding(
-            padding: const EdgeInsets.only(top:30.0,bottom: 20),
-            child: Row(
-              children: [
-                Checkbox(onChanged: (bool? value) {  }, value: false,),
-                textWidget("I’m not a robot", 18, true),
-              ],
-            )
-          )
+              padding: const EdgeInsets.only(top: 30.0, bottom: 20),
+              child: Row(
+                children: [
+                  Checkbox(
+                    onChanged: (bool? value) {},
+                    value: false,
+                  ),
+                  textWidget("I’m not a robot", 18, true),
+                ],
+              ))
         ],
       ),
     );
@@ -779,96 +786,99 @@ class _ImageFormState extends State<ImageForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Booking Form"),
-        ),
-        body: SingleChildScrollView(
-            child: Column(
+      appBar: AppBar(
+        title: Text("Booking Form"),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
           children: [
             Container(
-                height: 50,
-                child: Row(
-                  children: [
-                    Text("K"),
-                    DottedLine(
-                      direction: Axis.horizontal,
-                      lineLength: 150,
-                      lineThickness: 1.0,
-                      dashLength: 4.0,
-                      dashColor: Colors.black,
-                      dashGradient: [Colors.red, Colors.blue],
-                      dashRadius: 0.0,
-                      dashGapLength: 4.0,
-                      dashGapColor: Colors.transparent,
-                      dashGapGradient: [Colors.red, Colors.blue],
-                      dashGapRadius: 0.0,
-                    ),
-                    Text("K"),
-                  ],
-                ),),
-
-
-        Center(
-          child: !kIsWeb && defaultTargetPlatform == TargetPlatform.android
-              ? FutureBuilder<void>(
-            future: retrieveLostData(),
-            builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.none:
-                case ConnectionState.waiting:
-                  return const Text(
-                    'You have not yet picked an image.',
-                    textAlign: TextAlign.center,
-                  );
-                case ConnectionState.done:
-                  return _handlePreview();
-                default:
-                  if (snapshot.hasError) {
-                    return Text(
-                      'Pick image/video error: ${snapshot.error}}',
-                      textAlign: TextAlign.center,
-                    );
-                  } else {
-                    return const Text(
-                      'You have not yet picked an image.',
-                      textAlign: TextAlign.center,
-                    );
-                  }
-              }
-            },
-          )
-              : _handlePreview(),
-        ),],),),
-        floatingActionButton: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            Semantics(
-              label: 'image_picker_example_from_gallery',
-              child: FloatingActionButton(
-                onPressed: () {
-                  isVideo = false;
-                  _onImageButtonPressed(ImageSource.gallery, context: context);
-                },
-                heroTag: 'image0',
-                tooltip: 'Pick Image from gallery',
-                child: const Icon(Icons.photo),
+              height: 50,
+              child: Row(
+                children: [
+                  Text("K"),
+                  DottedLine(
+                    direction: Axis.horizontal,
+                    lineLength: 150,
+                    lineThickness: 1.0,
+                    dashLength: 4.0,
+                    dashColor: Colors.black,
+                    dashGradient: [Colors.red, Colors.blue],
+                    dashRadius: 0.0,
+                    dashGapLength: 4.0,
+                    dashGapColor: Colors.transparent,
+                    dashGapGradient: [Colors.red, Colors.blue],
+                    dashGapRadius: 0.0,
+                  ),
+                  Text("K"),
+                ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 16.0),
-              child: FloatingActionButton(
-                onPressed: () {
-                  isVideo = false;
-                  _onImageButtonPressed(ImageSource.camera, context: context);
-                },
-                heroTag: 'image2',
-                tooltip: 'Take a Photo',
-                child: const Icon(Icons.camera_alt),
-              ),
+            Center(
+              child: !kIsWeb && defaultTargetPlatform == TargetPlatform.android
+                  ? FutureBuilder<void>(
+                      future: retrieveLostData(),
+                      builder:
+                          (BuildContext context, AsyncSnapshot<void> snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.none:
+                          case ConnectionState.waiting:
+                            return const Text(
+                              'You have not yet picked an image.',
+                              textAlign: TextAlign.center,
+                            );
+                          case ConnectionState.done:
+                            return _handlePreview();
+                          default:
+                            if (snapshot.hasError) {
+                              return Text(
+                                'Pick image/video error: ${snapshot.error}}',
+                                textAlign: TextAlign.center,
+                              );
+                            } else {
+                              return const Text(
+                                'You have not yet picked an image.',
+                                textAlign: TextAlign.center,
+                              );
+                            }
+                        }
+                      },
+                    )
+                  : _handlePreview(),
             ),
           ],
         ),
-        );
+      ),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          Semantics(
+            label: 'image_picker_example_from_gallery',
+            child: FloatingActionButton(
+              onPressed: () {
+                isVideo = false;
+                _onImageButtonPressed(ImageSource.gallery, context: context);
+              },
+              heroTag: 'image0',
+              tooltip: 'Pick Image from gallery',
+              child: const Icon(Icons.photo),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 16.0),
+            child: FloatingActionButton(
+              onPressed: () {
+                isVideo = false;
+                _onImageButtonPressed(ImageSource.camera, context: context);
+              },
+              heroTag: 'image2',
+              tooltip: 'Take a Photo',
+              child: const Icon(Icons.camera_alt),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Text? _getRetrieveErrorWidget() {
