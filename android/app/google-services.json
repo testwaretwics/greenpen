@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "456214374656",
+    "project_id": "greenpen-bb18d",
+    "storage_bucket": "greenpen-bb18d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:456214374656:android:e0f697a066c80a4404ebe5",
+        "android_client_info": {
+          "package_name": "com.greenpenapp.greenpen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "456214374656-1d7uvr402rn5dh7kvlj2sdlhotmnpes7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhy7s75nKhvlSE68D3ROYYs3BoSEsX0ok"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "456214374656-1d7uvr402rn5dh7kvlj2sdlhotmnpes7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

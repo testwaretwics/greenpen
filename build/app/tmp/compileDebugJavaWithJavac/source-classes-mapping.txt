@@ -1,0 +1,4 @@
+io/flutter/plugins/GeneratedPluginRegistrant.java
+ io.flutter.plugins.GeneratedPluginRegistrant
+com/greenpenapp/greenpen/BuildConfig.java
+ com.greenpenapp.greenpen.BuildConfig
